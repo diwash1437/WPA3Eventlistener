@@ -1,0 +1,184 @@
+<!-- Student Name:- Diwash Sherma
+Student Id :- M23W0432 -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text area</title>
+  <style>
+    /* Add some basic styling if needed */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+
+    #textAreaContainer {
+      display: none;
+      margin-top: 20px;
+    }
+
+
+
+    #drawingAreaContainer {
+      display: none;
+      margin-top: 20px;
+    }
+
+    canvas {
+      border: 1px solid #000;
+    }
+
+
+
+    #surveyFormContainer {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .accessories {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Assignment 3: Forms and Mouse Events</h1>
+  <h2>Student id:- M23W0432</h2>
+  <h2>Student Name:- Diwash Sherma</h2>
+
+  <button type="button" id="showTextAreaBtn">Click me to get text Area </button>
+  <button type="button" id="showDrawingAreaBtn">Click me to get drawing area</button>
+  <button type="button" id="showSurveyFormBtn">Click me to get survey form</button>
+
+  <div id="textAreaContainer">
+    <label for="textarea">Text Area:</label>
+    <textarea id="textarea" rows="4" cols="50" placeholder="Type something..."></textarea>
+  </div>
+
+
+  <div id="drawingAreaContainer">
+    <canvas id="drawingArea" width="400" height="200"></canvas>
+  </div>
+
+
+  <div id="surveyFormContainer">
+    <form action="#" method="post">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required><br>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required><br>
+
+      <label>Computer Brand:</label>
+      <input type="radio" id="sony" name="computer_brand" value="sony">Sony
+
+      <input type="radio" id="hp" name="computer_brand" value="hp">HP
+
+      <input type="radio" id="dell" name="computer_brand" value="dell">dell
+      <br>
+
+      <div class="accessories">
+
+        <label>Accessories:</label><br>
+        <input type="checkbox" id="headset" name="accessories[]" value="headset">
+        <label for="headset">Headset</label><br>
+
+
+        <input type="checkbox" id="webcam" name="accessories[]" value="webcam">
+        <label for="webcam">Webcam</label><br>
+
+        <input type="checkbox" id="mouse" name="accessories[]" value="mouse">
+        <label for="mouse">Mouse</label><br>
+
+        <input type="checkbox" id="printer" name="accessories[]" value="printer">
+        <label for="printer">Printer</label><br>
+
+      </div>
+      <label for="favorite_ide">Favorite IDE:</label>
+      <select id="favorite_ide" name="favorite_ide">
+        <option value="vscode">VSCode</option>
+        <option value="eclipse">Eclipse</option>
+        <option value="intellij">IntelliJ</option>
+      </select><br><br>
+
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+  
+  <script>
+    // Function to show the text area
+    function showTextArea() {
+      document.getElementById('textAreaContainer').style.display = 'block';
+    }
+
+    // Add event listener to the "Click me" button
+    document.getElementById('showTextAreaBtn').addEventListener('click', showTextArea);
+
+    function showDrawingArea() {
+      document.getElementById('drawingAreaContainer').style.display = 'block';
+      initializeDrawingCanvas();
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const canvas = document.getElementById('drawingArea');
+      const context = canvas.getContext('2d');
+      let isDrawing = false;
+
+      canvas.addEventListener('mousedown', startDrawing);
+      canvas.addEventListener('mousemove', draw);
+      canvas.addEventListener('mouseup', stopDrawing);
+      canvas.addEventListener('mouseout', stopDrawing);
+
+      function startDrawing(e) {
+        isDrawing = true;
+        draw(e);
+      }
+
+      function draw(e) {
+        if (!isDrawing) return;
+
+        context.lineWidth = 3;
+        context.lineCap = 'round';
+        context.strokeStyle = '#000';
+
+        context.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+        context.stroke();
+        context.beginPath();
+        context.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+      }
+
+      function stopDrawing() {
+        isDrawing = false;
+        context.beginPath();
+      }
+    });
+
+    // Add event listener to the "Click me" button
+    document.getElementById('showDrawingAreaBtn').addEventListener('click', showDrawingArea);
+
+    //existing functions and event listeners go here
+
+    // Function to show the survey form
+    function showSurveyForm() {
+      const surveyFormContainer = document.getElementById('surveyFormContainer');
+      surveyFormContainer.style.display = 'block';
+    }
+
+    // Add event listener to the button
+    document.getElementById('showSurveyFormBtn').addEventListener('click', showSurveyForm);
+
+  </script>
+
+
+
+</body>
+
+</html>
